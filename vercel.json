@@ -1,21 +1,10 @@
 {
-  "version": 2,
-  "builds": [
-    { "src": "serverless.js", "use": "@vercel/node" }
-  ],
-  "routes": [
-    { "src": "/src/(.*)", "dest": "/src/$1" },
-    { "src": "/(.*)", "dest": "/serverless.js" }
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/api/serverless" }
   ],
   "functions": {
-    "serverless.js": {
-      "maxDuration": 10,
-      "memory": 1024
+    "api/serverless.js": {
+      "maxDuration": 10
     }
-  },
-  "env": {
-    "DEBUG_MODE": "false",
-    "CACHE_ENABLED": "true",
-    "PREFETCH_ENABLED": "true"
   }
 }

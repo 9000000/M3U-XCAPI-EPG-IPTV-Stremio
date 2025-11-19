@@ -1,5 +1,5 @@
 // Test serverless function locally before deploying to Vercel
-const handler = require('./serverless');
+const handler = require('./api/serverless');
 const http = require('http');
 
 const PORT = 3000;

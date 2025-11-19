@@ -15,7 +15,12 @@ yarn-error.log*
 *~
 .cache
 test.js
+test-serverless.js
 reddit_post.md
 replit.md
 README.md
 VERCEL_DEPLOY.md
+DEPLOY_NHANH.md
+CHECKLIST_DEPLOY.md
+server.js
+serverless.js
