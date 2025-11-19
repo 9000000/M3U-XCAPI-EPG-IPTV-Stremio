@@ -2,6 +2,7 @@ const { getRouter } = require("stremio-addon-sdk");
 const createAddon = require("./addon");
 const fs = require('fs');
 const path = require('path');
+const { decrypt } = require('./cryptoConfig');
 
 // NOTE: In a serverless environment, cold starts will rebuild & preload every time.
 // You may wish to add a timeout guard or skip full preload if execution time is tight.
@@ -42,9 +43,17 @@ module.exports = async function (req, res) {
     }
 
     try {
-        // This simplistic serverless handler does not parse per-request configs via URL like server.js.
-        // If you want dynamic configs in serverless, you'd replicate the logic from server.js here.
-        const addonInterface = await getInterface();
+        const [,,configEncoded] = req.url.split('/');
+		let userConfig = {};
+		if (configEncoded) {
+			try {
+				userConfig = JSON.parse(decrypt(configEncoded));
+			} catch(e) {
+				console.error("Invalid config token:", e.message)
+			}
+		}
+
+        const addonInterface = await getInterface(userConfig);
         const router = getRouter(addonInterface);
         router(req, res, function () {
             res.statusCode = 404;
