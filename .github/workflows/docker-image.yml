@@ -1,4 +1,4 @@
-name: Deploy 2
+name: docker-image
 on:
   push:
     tags:
